@@ -38,3 +38,10 @@ func (d deck) print() {
 		fmt.Println(i+1, card)
 	}
 }
+
+//deck is a slice of strings
+func deal(d deck, handSize int) (deck, deck) {
+	// Split the deck into two parts: hand and remaining cards
+	return d[:handSize], d[handSize:]
+
+}

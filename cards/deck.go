@@ -1,9 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
-//create a new type called deck
-//which is a slice of strings
+// create a new type called deck
+// which is a slice of strings
 type deck []string //same as type deck extends []string
 
 type card struct {
@@ -12,7 +16,7 @@ type card struct {
 	rank string
 }
 
-//newDeck function creates and returns a new deck of cards essentially a Array of strings
+// newDeck function creates and returns a new deck of cards essentially a Array of strings
 func newDeck() deck {
 	// Create a new deck of cards with some initial values
 	cardSuits := []string{"Hearts", "Diamonds", "Clubs", "Spades"}
@@ -29,8 +33,8 @@ func newDeck() deck {
 }
 
 // Reciever sets up methods on variable we create
-//The actual copy of cards is avalilable in deck as d in the function
-//Every variable of type deck will have access to the print method
+// The actual copy of cards is avalilable in deck as d in the function
+// Every variable of type deck will have access to the print method
 func (d deck) print() {
 	// Loop through the deck and print each card
 	for i, card := range d {
@@ -39,9 +43,49 @@ func (d deck) print() {
 	}
 }
 
-//deck is a slice of strings
+// deck is a slice of strings
 func deal(d deck, handSize int) (deck, deck) {
 	// Split the deck into two parts: hand and remaining cards
 	return d[:handSize], d[handSize:]
 
+}
+
+// function to convert a deck to a string to single string
+func (d deck) toString() string {
+	// Convert the deck to a single string with each card separated by a comma
+	// return fmt.Sprint([]string(d))
+	str := strings.Join([]string(d), ", ")
+	return str
+}
+
+// 0 6 6 6
+// │ │ │ └── Others' permissions
+// │ │ └──── Group's permissions
+// │ └────── Owner's permissions
+// └──────── Special bits (like setuid, setgid, sticky bit)
+// Each digit is a combination of:
+// Octal	Binary	Meaning
+// 0	000	No permissions
+// 1	001	Execute only
+// 2	010	Write only
+// 4	100	Read only
+// 6	110	Read + Write
+// 7	111	Read + Write + Execute
+
+// So 666 is:
+
+// Owner → Read + Write
+
+// Group → Read + Write
+
+// Others → Read + Write
+
+// That means anyone can read and write the file, but no one can execute it.
+
+func (d deck) saveToFile(filename string) error {
+	// Save the deck to a file
+	// Convert the deck to a string
+	data := d.toString()
+	// Write the string to the file
+	return os.WriteFile(filename, []byte(data), 0666)
 }

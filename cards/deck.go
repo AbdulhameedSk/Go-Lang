@@ -89,3 +89,17 @@ func (d deck) saveToFile(filename string) error {
 	// Write the string to the file
 	return os.WriteFile(filename, []byte(data), 0666)
 }
+
+// loadDeckFromFile function reads a deck from a file and returns it
+func newDeckFromFile(filename string) deck {
+	// Read the file content
+	bs, err := os.ReadFile(filename)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		os.Exit(1) // Exit the program if there's an error
+	}
+	// Split the file content into individual cards
+	s := strings.Split(string(bs), ", ")
+	// Return the new deck
+	return deck(s)
+}

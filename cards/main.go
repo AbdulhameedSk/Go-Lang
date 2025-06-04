@@ -9,7 +9,7 @@ func main() {
 	// cards:=[]string{"Ace of Spades", "Two of Hearts", "Three of Clubs", newCard()}
 	// cards := deck{"Ace of Spades", "Two of Hearts", "Three of Clubs", newCard()}
 	// cards = append(cards, "Six of Spades") // Adding a new card to the slice
-	cards := newDeck() // Create a new deck of cards
+	// cards := newDeck() // Create a new deck of cards
 	// cards.print()      // now d is cards
 	// deal(cards, 5) // Deal 5 cards from the deck
 
@@ -17,7 +17,9 @@ func main() {
 	// hand.print()
 	// fmt.Println("Dealt hand:")
 	// remainingDeck.print() // Print the remaining deck
-	cards.saveToFile("my_cards.txt") // Save the deck to a file
+	// cards.saveToFile("my_cards.txt") // Save the deck to a file
+	cards := newDeckFromFile("my_cards.txt") // Load the deck from a file
+	cards.print()                            // Print the loaded deck
 }
 
 // func newCard() string {

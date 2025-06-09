@@ -1,48 +1,55 @@
-// Interfaces in Go helps to define a contract that a type must adhere to.
-//Interfaces are generic, meaning they can be used with any type that implements the methods defined in the interface.
-//Interface are implicit, which means that you don't have to explicitly declare that a type implements an interface.
-
+// File: main.go
 package main
 
 import "fmt"
 
-//we have a type called bot which is interface.
-//if you are type in this program with function called greet, and return string,you are member of type bot.
-//since both EnglishBot and SpanishBot implement the greet method, they are considered to be of type bot.
-// The bot interface defines a method for greeting.
-type bot interface{
-	greet() string
-	// greet() (string) (string, error)
+/////////////////////////////////////////////////////////
+// 1. Interface definition
+/////////////////////////////////////////////////////////
+
+// bot is an *implicit* contract: any value that has a
+//   method   greet() string
+// automatically satisfies the interface.  
+// No extra “implements” keyword is required.
+type bot interface {
+    greet() string
+    // ← uncomment an alternative signature if you ever
+    //    want to return (string, error) instead.
 }
+
+/////////////////////////////////////////////////////////
+// 2. Concrete types that satisfy the contract
+/////////////////////////////////////////////////////////
+
 type EnglishBot struct{}
 type SpanishBot struct{}
 
-func main(){
-	eb:= EnglishBot{}
-	sb := SpanishBot{}
-	printGreeting(eb) // Output: Hello
-	printGreeting(sb) // Output: Hola
+// NOTE: Because both receivers are *values* (not pointers),
+//       a pointer OR a value of the concrete type will work
+//       when passed to printGreeting. If you ever need to
+//       mutate the receiver, switch to pointer receivers.
 
-}
+func (EnglishBot) greet() string { return "Hello" }
+func (SpanishBot) greet() string { return "Hola" }
 
-func (EnglishBot) greet() string {
-	return "Hello"
-}
-func (SpanishBot) greet() string {
-	return "Hola"
-}
-// Greet is an interface that defines a method for greeting.
+/////////////////////////////////////////////////////////
+// 3. Reusable code that works with **any** bot
+/////////////////////////////////////////////////////////
 
-// func printGreeting(e EnglishBot) {
-// 	// The function accepts any type that implements the Greet interface.
-// 	fmt.Println(e.greet())
-// }
-
-// func printGreeting(s SpanishBot){
-// 	fmt.Println(s.greet())
-// }
-
+// printGreeting is blissfully unaware of the concrete type.
+// It only knows the caller satisfies the bot interface.
 func printGreeting(b bot) {
-	// The function accepts any type that implements the bot interface.
-	fmt.Println(b.greet())
+    fmt.Println(b.greet())
+}
+
+/////////////////////////////////////////////////////////
+// 4. Demo
+/////////////////////////////////////////////////////////
+
+func main() {
+    eb := EnglishBot{}
+    sb := SpanishBot{}
+
+    printGreeting(eb) // → Hello
+    printGreeting(sb) // → Hola
 }

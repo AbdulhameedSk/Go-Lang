@@ -1,5 +1,5 @@
 package main
-
+//Does not give output coz first main completes and child routines are not completed so main exits befire child routines complete 
 import (
 	"fmt"
 	"net/http"

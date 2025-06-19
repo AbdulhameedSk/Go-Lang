@@ -33,6 +33,9 @@ func main() {
 
 	// fmt.Println(<-c)
 	//if one more link is down, it will block the main goroutine until it receives a message from the channel
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
+	}
 }
 
 func checkLink(link string, c chan string) {

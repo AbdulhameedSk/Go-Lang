@@ -179,6 +179,8 @@ fmt.Println(nums) // Prints [42 2 3]
 | int, float, struct, array    | Value        | No (unless ptr)  | Use pointer to alter   |
 | slice, map, channel          | Value (head) | Yes (data shared)| No pointer needed      |
 
+```https://gabrieleromanato.name/go-data-types-passed-by-value-and-data-types-passed-by-reference#:~:text=integers%20(int)%2C%20floats%20(float64)%2C%20strings%20(string)%2C%20and%20booleans%20(bool)%2C%20are%20passed%20by%20value```
+
 ## Extra Examples: Error Handling, Pointer Basics
 
 **Error Handling:**
